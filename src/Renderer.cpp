@@ -1,38 +1,56 @@
 #include <tuple>
+#include <algorithm>
 #include "CTurtle.hpp"
 #include "Renderer.h"
 
+using std::get;
 namespace ct = cturtle;
-ct::TurtleScreen scr(500, 500);
+ct::TurtleScreen scr(600, 600);
 ct::Turtle rt(scr);
 
-std::tuple<int, int> get_pixel_pos(int x, int y, int block_wd, int block_ht) {
-    return std::tuple<int, int>(
-            -scr.window_width()/2 + x * block_wd,
-            -scr.window_height()/2 + y * block_ht)
+Renderer::Renderer(int grid_wd, int grid_ht) {
+    block_size = std::min(scr.window_width() / grid_wd,
+                          scr.window_height() / grid_ht);
 }
 
-void draw_horz(int offset) {
+void Renderer::render_init(int wd, int ht) {
+    //rt.hideturtle();
+    draw_horz();
+    draw_vert();
+    write_number(1, 1, 9);
+    scr.exitonclick();
+}
+
+void Renderer::write_number(int x, int y, int n) {
+    auto pixel_pos = get_pixel_pos(x, y);
     rt.penup();
-    rt.goTo(-scr.window_width()/2, -scr.window_height()/2);
-    for (int i = 0; i*offset < scr.window_height(); i++) {
+    rt.goTo(get<0>(pixel_pos), get<1>(pixel_pos));
+    rt.pendown();
+    rt.write(std::to_string(n), "default", {"black"}, 1.5f, cturtle::TEXT_ALIGN_CENTER);
+}
+
+void Renderer::draw_horz() {
+    for (int i = 1; i*block_size < scr.window_height(); i++) {
+        int y = -scr.window_height()/2 + i * block_size;
+        rt.penup();
+        rt.goTo(-scr.window_width()/2, y);
         rt.pendown();
-        rt.goTo(scr.window_width(), i*);
+        rt.goTo(scr.window_width(), y);
     }
-    rt.pendown();
 }
 
-void render_init(int wd, int ht) {
-    rt.hideturtle();
-    draw_horz(ht);
-
-    scr.exitonclick();
+void Renderer::draw_vert() {
+    for (int i = 1; i*block_size < scr.window_height(); i++) {
+        int x = -scr.window_width()/2 + i * block_size;
+        rt.penup();
+        rt.goTo(x, -scr.window_height()/2);
+        rt.pendown();
+        rt.goTo(x, scr.window_height()/2);
+    }
 }
 
-void render_two() {
-    rt.pendown();
-    rt.goTo(-scr.window_width()/2, 200);
-    rt.right(90);
-    rt.forward(100);
-    scr.exitonclick();
+std::tuple<int, int> Renderer::get_pixel_pos(int x, int y) {
+    return {-scr.window_width()/2 + x * block_size,
+            scr.window_height()/2 - (y + 1) * block_size };
+
 }
