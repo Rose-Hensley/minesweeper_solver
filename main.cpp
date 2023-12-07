@@ -53,8 +53,8 @@ int main(int argc, char* argv[]) {
 
     int def_w, def_h, def_b;
     if (!dif.compare("e")) {
-        def_w = 16;
-        def_h = 30;
+        def_w = 30;
+        def_h = 16;
         def_b = 99;
     }
     else if (!dif.compare("i")) {

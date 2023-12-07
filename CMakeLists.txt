@@ -16,7 +16,6 @@ add_executable(minesweeper
         lib/src/Cell.cpp
         lib/include/Controller.h
         lib/src/Controller.cpp
-        lib/src/Parser.cpp
 )
 
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE lib/include)
