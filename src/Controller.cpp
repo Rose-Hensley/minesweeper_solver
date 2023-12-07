@@ -11,10 +11,6 @@ Controller::Controller(int wd, int ht, int bs)
     r.render_init();
 }
 
-void Controller::test() {
-    r.end_on_click();
-}
-
 void Controller::solve_dumb() {
     while (!b.has_won()) {
         auto click = next_click_dumb();

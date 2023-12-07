@@ -41,8 +41,10 @@ public:
     // Creates a board with wd cells across and ht cells high with bs bombs
     Board(int wd, int ht, int bs);
 
+    // Returns the width of this board
     int get_width();
 
+    // Returns the height of this board
     int get_height();
 
     // Returns -2 if nothing happened
@@ -57,16 +59,22 @@ public:
     // Returns whether the board has been won or not
     bool has_won();
 
+    // Gets the value of the cell that x,y if
     int get_value(int x, int y);
 
+    // Gets whether the cell at x,y is flagged or not
     int is_flagged(int x, int y);
 
+    // Gets whether the cell at x,y is visible or not
     int is_visible(int x, int y);
 
+    // Returns the number of adjacent flags the cell at x,y
     int get_num_adj_flags(int x, int y);
 
+    // Returns the number of non-visible cells adjacent to x,y
     int get_num_adj_invisible(int x, int y);
 
+    // Returns the position of a non-visible, non-flagged adjacent to x,y
     std::tuple<int, int> get_adj_non_flag(int x, int y);
 };
 

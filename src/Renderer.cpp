@@ -129,16 +129,3 @@ std::string Renderer::get_number_color(int n) {
     }
     return ret;
 }
-
-void Renderer::test() {
-    rt.pendown();
-    auto top_left = get_pixel_pos(0, 0);
-    auto top_right = get_pixel_pos(wd, 0);
-    auto bottom_right = get_pixel_pos(wd, ht);
-    auto bottom_left = get_pixel_pos(0, ht);
-    rt.goTo(get<0>(top_left), get<1>(top_left));
-    rt.goTo(get<0>(top_right), get<1>(top_right));
-    rt.goTo(get<0>(bottom_right), get<1>(bottom_right));
-    rt.goTo(get<0>(bottom_left), get<1>(bottom_left));
-    rt.goTo(get<0>(top_left), get<1>(top_left));
-}
