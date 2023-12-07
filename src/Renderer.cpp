@@ -5,7 +5,7 @@
 
 using std::get;
 namespace ct = cturtle;
-ct::TurtleScreen scr(1000, 700);
+ct::TurtleScreen scr(1150, 800);
 ct::Turtle rt(scr);
 
 Renderer::Renderer(int grid_wd, int grid_ht) : wd(grid_wd), ht(grid_ht) {
@@ -20,7 +20,7 @@ void Renderer::render_init() {
 }
 
 void Renderer::draw_number(int x, int y, int n) {
-    auto pixel_pos = get_write_pos(x, y);
+    auto pixel_pos = get_draw_pos(x, y);
     auto color = get_number_color(n);
     rt.penup();
     rt.goTo(get<0>(pixel_pos), get<1>(pixel_pos));
@@ -29,11 +29,19 @@ void Renderer::draw_number(int x, int y, int n) {
 }
 
 void Renderer::draw_bomb(int x, int y) {
-
+    auto pos = get_draw_pos(x, y);
+    rt.penup();
+    rt.goTo(get<0>(pos), get<1>(pos));
+    rt.pendown();
+    rt.write("B", "default", {"dark orange"}, 1.75f, cturtle::TEXT_ALIGN_CENTER);
 }
 
 void Renderer::draw_flag(int x, int y) {
-
+    auto pos = get_draw_pos(x, y);
+    rt.penup();
+    rt.goTo(get<0>(pos), get<1>(pos));
+    rt.pendown();
+    rt.write("F", "default", {"dark violet"}, 1.75f, cturtle::TEXT_ALIGN_CENTER);
 }
 
 void Renderer::end_on_click() {
@@ -73,7 +81,7 @@ std::tuple<int, int> Renderer::get_pixel_pos(int x, int y) {
     };
 }
 
-std::tuple<int, int> Renderer::get_write_pos(int x, int y) {
+std::tuple<int, int> Renderer::get_draw_pos(int x, int y) {
     auto upper_left = get_pixel_pos(x, y);
     return {
         get<0>(upper_left) + (block_size * 1) / 4,

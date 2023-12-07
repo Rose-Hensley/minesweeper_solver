@@ -17,7 +17,7 @@ private:
 
     std::tuple<int, int> get_pixel_pos(int x, int y);
 
-    std::tuple<int, int> get_write_pos(int x, int y);
+    std::tuple<int, int> get_draw_pos(int x, int y);
 
     std::string get_number_color(int n);
 
@@ -35,7 +35,6 @@ public:
     void end_on_click();
 
     void test();
-
 };
 
 
