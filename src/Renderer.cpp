@@ -44,6 +44,21 @@ void Renderer::draw_flag(int x, int y) {
     rt.write("F", "default", {"dark violet"}, 1.75f, cturtle::TEXT_ALIGN_CENTER);
 }
 
+void Renderer::draw_undo_flag(int x, int y) {
+    auto pos = get_draw_pos(x, y);
+    rt.penup();
+    rt.goTo(get<0>(pos), get<1>(pos));
+    rt.pendown();
+    rt.write("F", "default", {"white"}, 1.75f, cturtle::TEXT_ALIGN_CENTER);
+}
+
+void Renderer::draw_win() {
+    rt.penup();
+    rt.goTo(0, 0);
+    rt.pendown();
+    rt.write("WIN", "default", {"VioletRed4"}, 3.5f, cturtle::TEXT_ALIGN_CENTER);
+}
+
 void Renderer::end_on_click() {
     scr.exitonclick();
 }

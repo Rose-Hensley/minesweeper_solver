@@ -22,6 +22,10 @@ public:
     int get_val();
 
     void set_val(int n);
+
+    bool flag();
+
+    void make_visible();
 };
 
 #endif //MINESWEEPER_CELL_H

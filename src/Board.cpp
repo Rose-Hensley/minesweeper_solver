@@ -29,7 +29,7 @@ void Board::init_bombs() {
 void Board::set_vals() {
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
-            cells[x][y]->set_val(calc_val(x, y));
+            cells[y][x]->set_val(calc_val(x, y));
         }
     }
 }
@@ -60,9 +60,48 @@ int Board::click_cell(int x, int y) {
     if (cells[y][x]->is_visible()) {
         return -2;
     }
+    cells[y][x]->make_visible();
     return cells[y][x]->get_val();
 }
 
+bool Board::flag_cell(int x, int y) {
+    return cells[y][x]->flag();
+}
+
 bool Board::has_won() {
-    return
+    return width * height - bombs == get_num_visible();
+}
+
+int Board::get_num_visible() {
+    int ret = 0;
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            if (cells[y][x]->is_visible()) { ret++; }
+        }
+    }
+    return ret;
+}
+
+int Board::get_width() {
+    return width;
+}
+
+int Board::get_height() {
+    return height;
+}
+
+int Board::get_value(int x, int y) {
+    return cells[y][x]->get_val();
+}
+
+int Board::is_flagged(int x, int y) {
+    return cells[y][x]->is_flagged();
+}
+
+int Board::is_visible(int x, int y) {
+    return cells[y][x]->is_visible();
+}
+
+int Board::get_num_adj_flags(int x, int y) {
+
 }

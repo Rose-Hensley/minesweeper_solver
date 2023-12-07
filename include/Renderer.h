@@ -32,6 +32,10 @@ public:
 
     void draw_flag(int x, int y);
 
+    void draw_undo_flag(int x, int y);
+
+    void draw_win();
+
     void end_on_click();
 
     void test();

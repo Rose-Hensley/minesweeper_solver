@@ -17,3 +17,12 @@ int Cell::get_val() {
 void Cell::set_val(int n) {
     val = n;
 }
+
+bool Cell::flag() {
+    flagged = !flagged;
+    return flagged;
+}
+
+void Cell::make_visible() {
+    visible = true;
+}
