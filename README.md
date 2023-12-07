@@ -1,8 +1,9 @@
 # Minesweeper Solver
 A C++ program that generates boards of minesweeper, solves it, and renders it as it solves.
 
-#Libraries Used
+# Libraries Used
 This project uses the graphic library C-Turtle: https://github.com/walkerje/C-Turtle
+
 and the argument command line argument parser argh: https://github.com/adishavit/argh
 
 #Installation
