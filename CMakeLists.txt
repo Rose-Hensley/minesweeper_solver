@@ -9,6 +9,11 @@ add_executable(minesweeper
         lib/include/CImg.h
         lib/src/Renderer.cpp
         lib/include/Renderer.h
+        lib/include/argh.h
+        lib/include/Board.h
+        lib/src/Board.cpp
+        lib/include/Cell.h
+        lib/src/Cell.cpp
 )
 
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE lib/include)
