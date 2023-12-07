@@ -103,5 +103,41 @@ int Board::is_visible(int x, int y) {
 }
 
 int Board::get_num_adj_flags(int x, int y) {
+    int ret = 0;
+    for (int x_offset = -1; x_offset <= 1; x_offset++) {
+        for (int y_offset = -1; y_offset <= 1; y_offset++) {
+            if (!oob(x + x_offset, y + y_offset) && (x_offset != 0 || y_offset != 0)) {
+                if (cells[y + y_offset][x + x_offset]->is_flagged()) { ret++; }
+            }
+        }
+    }
+    return ret;
+}
 
+int Board::get_num_adj_invisible(int x, int y) {
+    int ret = 0;
+    for (int x_offset = -1; x_offset <= 1; x_offset++) {
+        for (int y_offset = -1; y_offset <= 1; y_offset++) {
+            if (!oob(x + x_offset, y + y_offset) && (x_offset != 0 || y_offset != 0)) {
+                if (!cells[y + y_offset][x + x_offset]->is_visible()) { ret++; }
+            }
+        }
+    }
+    return ret;
+}
+
+std::tuple<int, int> Board::get_adj_non_flag(int x, int y) {
+    int x_pos = 0;
+    int y_pos = 0;
+    for (int x_offset = -1; x_offset <= 1; x_offset++) {
+        for (int y_offset = -1; y_offset <= 1; y_offset++) {
+            if (!oob(x + x_offset, y + y_offset) && (x_offset != 0 || y_offset != 0)) {
+                if (!cells[y + y_offset][x + x_offset]->is_visible() && !cells[y + y_offset][x + x_offset]->is_flagged()) {
+                    x_pos = x + x_offset;
+                    y_pos = y + y_offset;
+                }
+            }
+        }
+    }
+    return {x_pos, y_pos};
 }

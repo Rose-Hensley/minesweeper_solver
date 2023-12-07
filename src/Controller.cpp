@@ -60,7 +60,7 @@ int Controller::click_cell(int x, int y) {
 }
 
 std::tuple<int, int> Controller::next_click_dumb() {
-    return std::tuple<int, int>(rand() % b.get_width(), rand() % b.get_height());
+    return {rand() % b.get_width(), rand() % b.get_height() };
 }
 
 void Controller::click_adjacent_non_flag(int x, int y) {
@@ -89,13 +89,39 @@ bool Controller::flag_cell(int x, int y) {
 std::tuple<int, int> Controller::next_click_smart() {
     for (int y = 0; y < b.get_height(); y++) {
         for (int x = 0; x < b.get_width(); x++) {
-            if (b.is_visible(x, y)) {
-
+            int adj_flags = b.get_num_adj_flags(x, y);
+            if (b.is_visible(x, y) && b.get_num_adj_invisible(x, y) > adj_flags && adj_flags == b.get_value(x, y)) {
+                return b.get_adj_non_flag(x, y);
             }
         }
     }
+    return {rand() % b.get_width(), rand() % b.get_height() };
 }
 
 bool Controller::flag_smart() {
-    return false;
+    bool ret = false;
+    for (int y = 0; y < b.get_height(); y++) {
+        for (int x = 0; x < b.get_width(); x++) {
+            if (b.is_visible(x, y) && b.get_num_adj_invisible(x, y) == b.get_value(x, y)) {
+                ret = ret || flag_all_adj(x, y);
+            }
+        }
+    }
+    return ret;
+}
+
+bool Controller::flag_all_adj(int x, int y) {
+    bool ret = false;
+    for (int x_offset = -1; x_offset <= 1; x_offset++) {
+        for (int y_offset = -1; y_offset <= 1; y_offset++) {
+            if ((x + x_offset >= 0 && x + x_offset < b.get_width()) &&
+                (y_offset + y >= 0 && y_offset + y < b.get_height()) && (x_offset != 0 || y_offset != 0)) {
+                if (!b.is_flagged(x + x_offset, y + y_offset) && !b.is_visible(x + x_offset, y + y_offset)) {
+                    flag_cell(x + x_offset, y + y_offset);
+                    ret = true;
+                }
+            }
+        }
+    }
+    return ret;
 }

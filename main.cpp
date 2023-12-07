@@ -5,8 +5,8 @@
 
 int main(int argc, char* argv[]) {
     srand(time(0));
-    int wd = 9, ht = 9, bs = 1;
+    int wd = 16, ht = 16, bs = 32;
     Controller c(wd,ht,bs);
-    c.solve_dumb();
+    c.solve_smart();
     return 0;
 }

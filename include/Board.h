@@ -66,6 +66,8 @@ public:
     int get_num_adj_flags(int x, int y);
 
     int get_num_adj_invisible(int x, int y);
+
+    std::tuple<int, int> get_adj_non_flag(int x, int y);
 };
 
 #endif //MINESWEEPER_BOARD_H

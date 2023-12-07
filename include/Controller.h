@@ -24,6 +24,8 @@ private:
 
     bool flag_smart();
 
+    bool flag_all_adj(int x, int y);
+
 public:
     Controller(int wd, int ht, int bs);
 
